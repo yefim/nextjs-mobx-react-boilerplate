@@ -1,3 +1,4 @@
+import { parse } from 'cookie'
 import "../styles/styles.scss";
 import {observer } from 'mobx-react';
 import React, { Component } from 'react';
@@ -17,8 +18,19 @@ class IndexPage extends Component {
   }
 
   render() {
+    let cookie = {};
+
+    // TODO: force second render (https://twitter.com/dan_abramov/status/1232081825939546112)
+    if (typeof window !== 'undefined') {
+      cookie = parse(document.cookie);
+      console.log(cookie);
+    }
+
     return (
       <div>
+        {
+          cookie.isLoggedIn ? <h1>Welcome logged in user</h1> : <h1>please log in</h1>
+        }
 
         <button
           onClick={this.onclick}
