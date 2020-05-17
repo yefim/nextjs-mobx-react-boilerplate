@@ -11,17 +11,21 @@ class IndexPage extends Component {
   constructor(props) {
     super(props);
     this.store = new SampleStore();
+    this.state = {isClient: false};
   }
 
   onclick = () => {
     this.store.toggleDisplay();
   }
 
+  componentDidMount() {
+    this.setState({isClient: true});
+  }
+
   render() {
     let cookie = {};
 
-    // TODO: force second render (https://twitter.com/dan_abramov/status/1232081825939546112)
-    if (typeof window !== 'undefined') {
+    if (this.state.isClient) {
       cookie = parse(document.cookie);
       console.log(cookie);
     }
